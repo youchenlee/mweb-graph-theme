@@ -35,7 +35,7 @@
           }else if($(this).hasClass('language-echarts')){  
             var ele = $(this).addClass('nohighlight').parent();  
             ele.hide();           
-            $('<div style="width: 100%;height:400px;" id="'+eleiid+'"></div>').insertAfter(ele);                
+            $('<div style="width: 100%;" id="'+eleiid+'"></div>').insertAfter(ele);
             var myChart = echarts.init(document.getElementById(eleiid));
             try  {
               eval($(this).text());
@@ -46,7 +46,7 @@
             ele.hide();
             var str = unescape(encodeURIComponent($(this).text()));
             var graph = Viz(str);
-            $('<div style="width: 100%;height:400px;" id="'+eleiid+'"></div>').html(graph).insertAfter(ele);
+            $('<div style="width: 100%;" id="'+eleiid+'"></div>').html(graph).insertAfter(ele);
           }
         });
 

@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>{{title}}</title>
+    <link rel="stylesheet" type="text/css" href="asset/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="asset/mermaid.css">
+    <link type="text/css" rel="stylesheet" href="asset/style.css">
+   <script type="text/javascript" src="asset/jquery_plantuml/jquery.js"></script>
+   <script type="text/javascript" src="asset/jquery_plantuml/rawdeflate.js"></script>
+   <script type="text/javascript" src="asset/jquery_plantuml/encode64.js"></script>
+    <script src="asset/echarts.common.min.js"></script>
+    <script src="asset/mermaid.min.js"></script>
+    <script type="text/javascript">
+    $(function(){    
+      var mwebii=0;    
+      var mwebChartEleId = 'mweb-chart-ele-';    
+      $('pre>code').each(function(){        
+        mwebii++;        
+        var eleiid = mwebChartEleId+mwebii;        
+        if($(this).hasClass('language-mermaid')){            
+          var ele = $(this).addClass('nohighlight').parent();  
+          ele.hide();           
+          $('<div id="'+eleiid+'"></div>').addClass('mermaid').html($(this).text()).insertAfter(ele);                
+        }else if($(this).hasClass('language-plantuml')){            
+          var ele = $(this).addClass('nohighlight').parent(); 
+          ele.hide(); 
+          var str = unescape(encodeURIComponent($(this).text()));
+          var imgURL = "http://www.plantuml.com/plantuml/svg/"+encode64(deflate(str,9));
+          var newEle = $('<div id="'+eleiid+'"><img src="'+imgURL+'" /></div>').insertAfter(ele);
+        }else if($(this).hasClass('language-js-echarts')){  
+          var ele = $(this).addClass('nohighlight').parent();  
+          ele.hide();           
+          $('<div style="width: 100%;height:400px;" id="'+eleiid+'"></div>').insertAfter(ele);                
+          var myChart = echarts.init(document.getElementById(eleiid));
+          try  {
+            eval($(this).text());
+            myChart.setOption(option);
+          }catch(exception) {}
+        }    
+      });
+
+      mermaid.init({noteMargin: 10}, ".mermaid");
+    });
+    </script>
+  </head>
+  <body>
+    <div class="markdown-body">
+      
+      <pre><code class="language-mermaid">graph TD
+    B[&quot;fa:fa-twitter for peace&quot;]
+    B--&gt;C[fa:fa-ban forbidden]
+    B--&gt;D(fa:fa-spinner);
+    B--&gt;E(A fa:fa-camera-retro perhaps?);
+</code></pre>
+      <pre><code class="language-plantuml">actor Foo1
+boundary Foo2
+control Foo3
+entity Foo4
+database Foo5
+Foo1 -&gt; Foo2 : To boundary
+Foo1 -&gt; Foo3 : To control
+Foo1 -&gt; Foo4 : To entity
+Foo1 -&gt; Foo5 : To database
+</code></pre>
+
+<pre><code class="language-js-echarts">option = {
+    title : {
+        text: &#39;某站点用户访问来源&#39;,
+        subtext: &#39;纯属虚构&#39;,
+        x:&#39;center&#39;
+    },
+    tooltip : {
+        trigger: &#39;item&#39;,
+        formatter: &quot;{a} &lt;br/&gt;{b} : {c} ({d}%)&quot;
+    },
+    legend: {
+        orient: &#39;vertical&#39;,
+        left: &#39;left&#39;,
+        data: [&#39;直接访问&#39;,&#39;邮件营销&#39;,&#39;联盟广告&#39;,&#39;视频广告&#39;,&#39;搜索引擎&#39;]
+    },
+    series : [
+        {
+            name: &#39;访问来源&#39;,
+            type: &#39;pie&#39;,
+            radius : &#39;55%&#39;,
+            center: [&#39;50%&#39;, &#39;60%&#39;],
+            data:[
+                {value:335, name:&#39;直接访问&#39;},
+                {value:310, name:&#39;邮件营销&#39;},
+                {value:234, name:&#39;联盟广告&#39;},
+                {value:135, name:&#39;视频广告&#39;},
+                {value:1548, name:&#39;搜索引擎&#39;}
+            ],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: &#39;rgba(0, 0, 0, 0.5)&#39;
+                }
+            }
+        }
+    ]
+};
+</code></pre>
+
+    </div>
+  </body>
+</html>

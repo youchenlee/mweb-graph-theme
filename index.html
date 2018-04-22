@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
     <title>{{title}}</title>
-    
+
     <link rel="stylesheet" type="text/css" href="asset/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="asset/mermaid.css">
     <link type="text/css" rel="stylesheet" href="asset/style.css">
@@ -16,25 +16,25 @@
     <script src="asset/viz.js"></script>
     <!-- <script src="bower_components/viz.js/viz.js"></script>-->
     <script type="text/javascript">
-      $(function(){    
-        var mwebii=0;    
-        var mwebChartEleId = 'mweb-chart-ele-';    
-        $('pre>code').each(function(){        
-          mwebii++;        
-          var eleiid = mwebChartEleId+mwebii;        
-          if($(this).hasClass('language-mermaid')){            
-            var ele = $(this).addClass('nohighlight').parent();  
-            ele.hide();           
-            $('<div id="'+eleiid+'"></div>').addClass('mermaid').html($(this).text()).insertAfter(ele);                
-          }else if($(this).hasClass('language-plantuml')){            
-            var ele = $(this).addClass('nohighlight').parent(); 
-            ele.hide(); 
+      $(function(){
+        var mwebii=0;
+        var mwebChartEleId = 'mweb-chart-ele-';
+        $('pre>code').each(function(){
+          mwebii++;
+          var eleiid = mwebChartEleId+mwebii;
+          if($(this).hasClass('language-mermaid')){
+            var ele = $(this).addClass('nohighlight').parent();
+            ele.hide();
+            $('<div id="'+eleiid+'"></div>').addClass('mermaid').html($(this).text()).insertAfter(ele);
+          }else if($(this).hasClass('language-plantuml')){
+            var ele = $(this).addClass('nohighlight').parent();
+            ele.hide();
             var str = unescape(encodeURIComponent($(this).text()));
             var imgURL = "http://www.plantuml.com/plantuml/svg/"+encode64(deflate(str,9));
             var newEle = $('<div id="'+eleiid+'"><img src="'+imgURL+'" /></div>').insertAfter(ele);
-          }else if($(this).hasClass('language-echarts')){  
-            var ele = $(this).addClass('nohighlight').parent();  
-            ele.hide();           
+          }else if($(this).hasClass('language-echarts')){
+            var ele = $(this).addClass('nohighlight').parent();
+            ele.hide();
             $('<div style="width: 100%;" id="'+eleiid+'"></div>').insertAfter(ele);
             var myChart = echarts.init(document.getElementById(eleiid));
             try  {
@@ -53,14 +53,6 @@
         mermaid.init({noteMargin: 10}, ".mermaid");
       });
     </script>
-    <style>
-      body {
-	min-width: 200px;
-	max-width: 1400px;
-	margin: 0 auto;
-	padding: 30px;
-      }
-    </style>
     {{head}}
   </head>
   <body>

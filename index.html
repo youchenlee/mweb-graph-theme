@@ -41,11 +41,41 @@
               eval($(this).text());
               myChart.setOption(option);
             }catch(exception) {}
-          } else if($(this).hasClass('language-viz')){
+          } else if($(this).hasClass('language-viz') || $(this).hasClass('language-viz-dot') ){
             var ele = $(this).addClass('nohighlight').parent();
             ele.hide();
             var str = unescape(encodeURIComponent($(this).text()));
             var graph = Viz(str);
+            $('<div style="width: 100%;" id="'+eleiid+'"></div>').html(graph).insertAfter(ele);
+          } else if ($(this).hasClass('language-viz-circo')) {
+            var ele = $(this).addClass('nohighlight').parent();
+            ele.hide();
+            var str = unescape(encodeURIComponent($(this).text()));
+            var graph = Viz(str, { engine: "circo" });
+            $('<div style="width: 100%;" id="'+eleiid+'"></div>').html(graph).insertAfter(ele);
+          } else if ($(this).hasClass('language-viz-fdp')) {
+            var ele = $(this).addClass('nohighlight').parent();
+            ele.hide();
+            var str = unescape(encodeURIComponent($(this).text()));
+            var graph = Viz(str, { engine: "fdp" });
+            $('<div style="width: 100%;" id="'+eleiid+'"></div>').html(graph).insertAfter(ele);
+          } else if ($(this).hasClass('language-viz-neato')) {
+            var ele = $(this).addClass('nohighlight').parent();
+            ele.hide();
+            var str = unescape(encodeURIComponent($(this).text()));
+            var graph = Viz(str, { engine: "neato" });
+            $('<div style="width: 100%;" id="'+eleiid+'"></div>').html(graph).insertAfter(ele);
+          } else if ($(this).hasClass('language-viz-osage')) {
+            var ele = $(this).addClass('nohighlight').parent();
+            ele.hide();
+            var str = unescape(encodeURIComponent($(this).text()));
+            var graph = Viz(str, { engine: "osage" });
+            $('<div style="width: 100%;" id="'+eleiid+'"></div>').html(graph).insertAfter(ele);
+          } else if ($(this).hasClass('language-viz-twopi')) {
+            var ele = $(this).addClass('nohighlight').parent();
+            ele.hide();
+            var str = unescape(encodeURIComponent($(this).text()));
+            var graph = Viz(str, { engine: "twopi" });
             $('<div style="width: 100%;" id="'+eleiid+'"></div>').html(graph).insertAfter(ele);
           }
         });
